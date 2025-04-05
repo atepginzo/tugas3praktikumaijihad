@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Harga Rumah</title>
+    <!-- Menambahkan Link ke Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6f42c1, #9b59b6); /* Gradien Ungu */
+            color: #ffffff;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        h1, h3 {
+            color: #6f42c1;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #6f42c1;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border-color: #6f42c1;
+        }
+
+        .btn-primary {
+            background-color: #6f42c1;
+            border-color: #6f42c1;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a2d9c;
+            border-color: #5a2d9c;
+        }
+
+        .alert-success {
+            background-color: #8e44ad;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .img-fluid {
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .footer a {
+            color: #6f42c1;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .text-muted {
+            color: #9e9e9e !important;
+        }
+
+        .alert h4 {
+            font-size: 22px;
+        }
+
+        /* Update untuk membuat teks hasil prediksi lebih jelas */
+        .alert-success h3 {
+            color: #ffffff;  /* Menggunakan warna putih untuk teks hasil */
+            font-size: 2rem;  /* Menambah ukuran font */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Visualisasi Prediksi Harga Rumah</h1>
+
+        <!-- Form Input untuk Prediksi Harga -->
+        <form action="/predict_manual" method="POST" class="mb-5">
+            <div class="mb-3">
+                <label for="luas_bangunan" class="form-label">Luas Bangunan (m²):</label>
+                <input type="number" class="form-control" id="luas_bangunan" name="luas_bangunan" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="luas_tanah" class="form-label">Luas Tanah (m²):</label>
+                <input type="number" class="form-control" id="luas_tanah" name="luas_tanah" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="lokasi" class="form-label">Lokasi:</label>
+                <select id="lokasi" name="lokasi" class="form-select" required>
+                    {% for lokasi in lokasi_list %}
+                        <option value="{{ lokasi }}">{{ lokasi }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Prediksi Harga</button>
+        </form>
+
+        {% if prediksi %}
+            <div class="alert alert-success text-center">
+                <h4>Harga Rumah Prediksi:</h4>
+                <h3>{{ prediksi }}</h3>
+            </div>
+        {% endif %}
+
+        <div class="text-center">
+            <h3 class="mb-4">Grafik Visualisasi</h3>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h5>Scatter Plot</h5>
+                    <img src="/static/scatter_plot.png" alt="Scatter Plot" class="img-fluid">
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h5>Bar Chart</h5>
+                    <img src="/static/bar_chart.png" alt="Bar Chart" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center text-muted mt-4">Warna Biru : Harga Aktual | Warna Merah : Harga Prediksi</p>
+        
+    </div>
+
+    <!-- Menambahkan Script untuk Bootstrap JS (Opsional) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
