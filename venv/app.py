@@ -12,7 +12,8 @@ app = Flask(__name__)
 model = joblib.load('model.pkl')
 
 # Load data untuk mendapatkan lokasi
-df = pd.read_excel(r'C:\Tugas Kuliah\SEMESTER 4\Praktikum AI\Tugas 3\Tugas 3\venv\DATA_RUMAH_SELESAI.xlsx')
+df = pd.read_excel('DATA_RUMAH_SELESAI.xlsx')
+
 lokasi_unik = df['LOKASI'].unique()
 
 # Route Halaman Utama
